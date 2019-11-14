@@ -1,2 +1,2 @@
 # java-test-repo
-Repository for testing code for Java and Kotlin
+Repository for testing Java and Kotlin code
