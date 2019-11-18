@@ -18,11 +18,11 @@ class LocalDateTest {
         var year2LastDate = year2StartDate.plusMonths(11).withDayOfMonth(year2StartDate.plusMonths(11).lengthOfMonth())
 
         var year3StartDate = year2LastDate.plusDays(1)
-        //var year3LastDate = year3StartDate.plusMonths(12).withDayOfMonth(year3StartDate.plusMonths(12).lengthOfMonth())
+        var year3LastDate = year3StartDate.plusMonths(11).withDayOfMonth(year3StartDate.plusMonths(11).lengthOfMonth())
 
         val numOfMonthsBetweenYear1Dates = ChronoUnit.MONTHS.between(year1StartDate, year1LastDate)
-        val numOfMonthsBetweenYear2Dates = ChronoUnit.MONTHS.between(year1StartDate, year1LastDate)
-        val numOfMonthsBetweenYear3Dates = ChronoUnit.MONTHS.between(year1StartDate, year1LastDate)
+        val numOfMonthsBetweenYear2Dates = ChronoUnit.MONTHS.between(year2StartDate, year2LastDate)
+        val numOfMonthsBetweenYear3Dates = ChronoUnit.MONTHS.between(year3StartDate, year3LastDate)
 
         val year1Timestamps = ArrayList<Instant>()
         val year2Timestamps = ArrayList<Instant>()
