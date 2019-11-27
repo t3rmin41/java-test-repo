@@ -1,4 +1,4 @@
-package com.simple
+package com.simple.domain
 
 data class Person(
     val id: String? = null,

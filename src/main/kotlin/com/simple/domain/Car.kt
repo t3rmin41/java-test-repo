@@ -1,4 +1,4 @@
-package com.simple
+package com.simple.domain
 
 interface Car {
     fun getManufacturer(): String

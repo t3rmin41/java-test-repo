@@ -1,6 +1,6 @@
 package com.simple.test;
 
-import com.simple.Car;
+import com.simple.domain.Car;
 import com.simple.cars.Dodge;
 import org.junit.jupiter.api.Test;
 
