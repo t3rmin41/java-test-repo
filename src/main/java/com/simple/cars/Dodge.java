@@ -1,6 +1,6 @@
 package com.simple.cars;
 
-import com.simple.Car;
+import com.simple.domain.Car;
 
 public class Dodge implements Car {
 
