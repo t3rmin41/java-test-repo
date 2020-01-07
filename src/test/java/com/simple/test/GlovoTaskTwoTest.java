@@ -91,7 +91,7 @@ public class GlovoTaskTwoTest {
                             sameColorAdjacentColumns.add(n);
                         } else {
                             interruptedLoop = true;
-                            countryCount = countryCount + 1;
+                            countryCount = countryCount + 1; // if loop is always interrupted - OK, but what to do when loop finishes normally because of reaching array length?
                             break;
                         }
                         n++;
