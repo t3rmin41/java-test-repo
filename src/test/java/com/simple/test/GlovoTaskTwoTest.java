@@ -3,8 +3,10 @@ package com.simple.test;
 import org.junit.jupiter.api.Test;
 
 import java.util.AbstractMap;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -17,6 +19,7 @@ public class GlovoTaskTwoTest {
     private int [][] test3 = {{1,2,3,3},{3,2,4,5},{6,7,8,8}}; //9
     private int [][] test4 = {{1,2,2},{3,2,5},{4,6,8}}; //7
     private int [][] testRealWorld1 = {{1,2,2},{3,2,4},{5,6,7}}; //7
+    private int [][] test5 = {{1,2,2},{3,2,5},{1,3,2}}; //7
 
     class Solution {
         public int realWorldSolution(int[][] A) {
@@ -52,17 +55,60 @@ public class GlovoTaskTwoTest {
 
         public int solution(int[][] A) {
             int currentCountryColor = 0;
-            int countryCount = 1;
+            int countryCount = 0;
 
             for (int i = 0; i < A[0].length; i++) {
                 for (int j = 0; j < A[i].length; j++) {
                     currentCountryColor = A[i][j];
                     int n = j;
                     while (n < A[i].length) {
+                        while (n < A[i].length)
                         if (currentCountryColor != A[j][n]) {
                             countryCount = countryCount + 1;
                         }
                         n++;
+                    }
+                }
+            }
+            return countryCount;
+        }
+
+        public int testSolution(int[][] A) {
+            int currentCountryColor = 0;
+            int countryCount = 0;
+
+            boolean[][] visitedMap = new boolean[A.length][A[0].length];
+
+            for (int i = 0; i < A[0].length; i++) {
+                for (int j = 0; j < A[i].length; j++) {
+                    currentCountryColor = A[i][j];
+                    List<Integer> sameColorAdjacentColumns = new ArrayList<>();
+                    int n = j;
+                    boolean interruptedLoop = false;
+                    while (n < A[i].length) {
+                        if (currentCountryColor == A[i][n] && !visitedMap[i][n]) {
+                            visitedMap[n][j] = true;
+                            sameColorAdjacentColumns.add(n);
+                        } else {
+                            interruptedLoop = true;
+                            countryCount = countryCount + 1;
+                            break;
+                        }
+                        n++;
+                    }
+                    if (!interruptedLoop) {
+                        countryCount = countryCount + 1;
+                    }
+                    int m = i;
+                    for (Integer column : sameColorAdjacentColumns) {
+                        while (m < A[i].length) {
+                            if (currentCountryColor == A[m][column]) {
+                                visitedMap[i][column] = true;
+                            } else {
+                                break;
+                            }
+                            m++;
+                        }
                     }
                 }
             }
@@ -79,7 +125,8 @@ public class GlovoTaskTwoTest {
         //assertEquals(7, solution.solution(test4));
         //assertEquals(7, solution.solution(testRealWorld1));
         //assertEquals(7, solution.realWorldSolution(testRealWorld1));
-        assertEquals(11, solution.realWorldSolution(test1));
+        //assertEquals(11, solution.realWorldSolution(test1));
+        assertEquals(7, solution.testSolution(test5));
     }
 
 }
