@@ -21,25 +21,30 @@ public class GlovoTaskTwoTest {
     class Solution {
         public int realWorldSolution(int[][] A) {
 
-            Map<Integer, Set<AbstractMap.SimpleEntry<Integer, Integer>>> countryMap = new HashMap<>();
+            //Map<Integer, Set<AbstractMap.SimpleEntry<Integer, Integer>>> countryMap = new HashMap<>();
+            Map<AbstractMap.SimpleEntry<Integer, Integer>, Set<AbstractMap.SimpleEntry<Integer, Integer>>> countryMap = new HashMap<>();
 
             int currentCountryColor = 0;
+            int nextId = 1; // next ID of country as color codes may duplicate
 
             for (int i = 0; i < A.length; i++) {
                 for (int j = 0; j < A[i].length; j++) {
                     currentCountryColor = A[i][j];
-                    countryMap.putIfAbsent(currentCountryColor, new HashSet<>());
+                    //countryMap.putIfAbsent(currentCountryColor, new HashSet<>());
+                    countryMap.putIfAbsent(new AbstractMap.SimpleEntry<>(nextId, currentCountryColor), new HashSet<>());
                     int n = j;
                     while (n < A[i].length) {
                         int m = i;
                         while (m < A.length) {
                             if (currentCountryColor == A[m][n]) {
-                                countryMap.get(currentCountryColor).add(new AbstractMap.SimpleEntry<Integer, Integer>(i, j));
+                                //countryMap.get(currentCountryColor).add(new AbstractMap.SimpleEntry<Integer, Integer>(i, j));
+                                countryMap.get(new AbstractMap.SimpleEntry<>(nextId, currentCountryColor)).add(new AbstractMap.SimpleEntry<>(i, j));
                             }
                             m++;
                         }
                         n++;
                     }
+                    nextId++; //here?
                 }
             }
             return countryMap.values().size();
@@ -73,7 +78,8 @@ public class GlovoTaskTwoTest {
         //assertEquals(9, solution.solution(test3));
         //assertEquals(7, solution.solution(test4));
         //assertEquals(7, solution.solution(testRealWorld1));
-        assertEquals(7, solution.realWorldSolution(testRealWorld1));
+        //assertEquals(7, solution.realWorldSolution(testRealWorld1));
+        assertEquals(11, solution.realWorldSolution(test1));
     }
 
 }
