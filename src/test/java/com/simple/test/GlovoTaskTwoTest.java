@@ -19,7 +19,7 @@ public class GlovoTaskTwoTest {
     private int [][] test3 = {{1,2,3,3},{3,2,4,5},{6,7,8,8}}; //9
     private int [][] test4 = {{1,2,2},{3,2,5},{4,6,8}}; //7
     private int [][] testRealWorld1 = {{1,2,2},{3,2,4},{5,6,7}}; //7
-    private int [][] test5 = {{1,2,2},{3,2,1},{4,3,2}}; //7
+    private int [][] test5 = {{1,2,2},{3,2,1},{4,3,2},{4,3,2}}; //7
 
     class Solution {
         public int realWorldSolution(int[][] A) {
@@ -91,14 +91,14 @@ public class GlovoTaskTwoTest {
                 loopInterrupted = false;
 
                 while (j < A[i].length) {
-                    //currentCountryColor = A[i][j];
-                    if (currentCountryColor == A[i][j] && !visitedMap[i][j]) {
-                        visitedMap[i][j] = true;
-                        sameColorAdjacentColumns.add(j);
-                    } else if (currentCountryColor == A[i][j] && visitedMap[i][j]) {
+                    if (visitedMap[i][j]) {
                         j++;
                         currentCountryColor = A[i][j];
                         continue;
+                    }
+                    if (currentCountryColor == A[i][j] && !visitedMap[i][j]) {
+                        visitedMap[i][j] = true;
+                        sameColorAdjacentColumns.add(j);
                     } else if (currentCountryColor != A[i][j] && !visitedMap[i][j]) {
                         countryCount++;
                         loopInterrupted = true;
@@ -109,15 +109,12 @@ public class GlovoTaskTwoTest {
                 }
                 for (Integer column : sameColorAdjacentColumns) {
                     int n = 0;
-                    int m = 0;
                     if (loopInterrupted) {
                         n = i+1;
-                        m = i+1;
                     } else {
                         n = i;
-                        m = i;
                     }
-                    while (n < A[m].length) {
+                    while (n < A.length) {
                         if (currentCountryColor == A[n][column]) {
                             visitedMap[n][column] = true;
                         } else {
