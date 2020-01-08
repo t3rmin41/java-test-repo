@@ -19,7 +19,7 @@ public class GlovoTaskTwoTest {
     private int [][] test3 = {{1,2,3,3},{3,2,4,5},{6,7,8,8}}; //9
     private int [][] test4 = {{1,2,2},{3,2,5},{4,6,8}}; //7
     private int [][] testRealWorld1 = {{1,2,2},{3,2,4},{5,6,7}}; //7
-    private int [][] test5 = {{1,2,2},{3,2,5},{1,3,2}}; //7
+    private int [][] test5 = {{1,2,2},{3,2,1},{4,3,2}}; //7
 
     class Solution {
         public int realWorldSolution(int[][] A) {
@@ -79,7 +79,60 @@ public class GlovoTaskTwoTest {
 
             boolean[][] visitedMap = new boolean[A.length][A[0].length];
 
-            for (int i = 0; i < A[0].length; i++) {
+            boolean loopInterrupted = true;
+            int i = 0;
+            while (i < A.length) {
+                if (!loopInterrupted) {
+                    countryCount++;
+                }
+                int j = 0;
+                currentCountryColor = A[i][j];
+                List<Integer> sameColorAdjacentColumns = new ArrayList<>();
+                loopInterrupted = false;
+
+                while (j < A[i].length) {
+                    //currentCountryColor = A[i][j];
+                    if (currentCountryColor == A[i][j] && !visitedMap[i][j]) {
+                        visitedMap[i][j] = true;
+                        sameColorAdjacentColumns.add(j);
+                    } else if (currentCountryColor == A[i][j] && visitedMap[i][j]) {
+                        j++;
+                        currentCountryColor = A[i][j];
+                        continue;
+                    } else if (currentCountryColor != A[i][j] && !visitedMap[i][j]) {
+                        countryCount++;
+                        loopInterrupted = true;
+                        i--;
+                        break;
+                    }
+                    j++;
+                }
+                for (Integer column : sameColorAdjacentColumns) {
+                    int n = 0;
+                    int m = 0;
+                    if (loopInterrupted) {
+                        n = i+1;
+                        m = i+1;
+                    } else {
+                        n = i;
+                        m = i;
+                    }
+                    while (n < A[m].length) {
+                        if (currentCountryColor == A[n][column]) {
+                            visitedMap[n][column] = true;
+                        } else {
+                            break;
+                        }
+                        n++;
+                    }
+                }
+                i++;
+            }
+/*
+            for (int i = 0; i < A.length; i++) {
+
+
+
                 for (int j = 0; j < A[i].length; j++) {
                     currentCountryColor = A[i][j];
                     List<Integer> sameColorAdjacentColumns = new ArrayList<>();
@@ -111,7 +164,7 @@ public class GlovoTaskTwoTest {
                         }
                     }
                 }
-            }
+            }*/
             return countryCount;
         }
     }
