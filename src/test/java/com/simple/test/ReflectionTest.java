@@ -27,6 +27,7 @@ public class ReflectionTest {
         messageCollectionList.forEach(collection -> {
             try {
                 Field field = Class.forName(MessageCollection.class.getName()).getDeclaredField(collection.getName());
+                // field gets only metadata of field, to get concrete value one should pass to field concrete instance of class, e.g. instance of List<Indexable>
                 field.setAccessible(true);
                 List<Indexable> indexables = (List<Indexable>) field.get(collection);
                 indexables.forEach(i -> {
