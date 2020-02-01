@@ -30,4 +30,9 @@ public class SimpleMessage implements Indexable {
         this.message = message;
         return this;
     }
+
+    @Override
+    public String toString() {
+        return "{id="+id+";message="+message+";timestamp="+timestamp.toEpochMilli()+"}";
+    }
 }
